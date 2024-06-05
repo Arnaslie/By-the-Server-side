@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "__config": "c",
+        "locale": "c",
+        "complex": "c",
+        "system_error": "c"
+    }
+}
