@@ -9,6 +9,8 @@
 #include <netinet/in.h>
 #include <netinet/ip.h>
 #include <arpa/inet.h>
+#include <unistd.h>
+
 
 int main() {
   printf("Hi, we'll be building a HTTP server \n");
@@ -29,7 +31,8 @@ int main() {
   int acc = accept_connection(socket_index, NULL, NULL);
   char buffer[100] = "You have to leave the space! All the time you have to leave the space! - FernanGOAT\n";
   send(acc, buffer, sizeof(buffer), 0);
-
+  int closed = close(socket_index);
+  
   free(socket_ptr);
 
   return 0;
