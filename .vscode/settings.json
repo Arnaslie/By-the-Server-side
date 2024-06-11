@@ -3,6 +3,7 @@
         "__config": "c",
         "locale": "c",
         "complex": "c",
-        "system_error": "c"
+        "system_error": "c",
+        "stdio.h": "c"
     }
 }

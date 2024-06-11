@@ -1,1 +1,0 @@
-int connect_socket(int sock, struct sockaddr* addr, socklen_t length);
