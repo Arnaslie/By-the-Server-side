@@ -13,22 +13,13 @@
 #include <string.h>
 
 
-char* parse_request(char* str_to_parse, char* delimiter) {
-  char* result;
-  result = strtok(str_to_parse, delimiter);
-  while(result != NULL) {
-    printf("%s \n" , result);
-    result = strtok(NULL, delimiter);
-  }
-  return result;
-}
-
-
-
 int main() {
   printf("Hi, we'll be building a HTTP server \n");
 
   char * header = "HTTP-Version = HTTP/1.1\n";
+  char c_buff[100];
+  char* delimiter = "\r\n";
+  Request user_req;
 
   struct sockaddr_in* socket_ptr = malloc(sizeof socket_ptr);
   struct in_addr addr_t;
@@ -47,15 +38,11 @@ int main() {
 
   int listening = enable_listen(socket_index, 3);
   printf("Server is listening on %s:%d \n", inet_ntoa(addr_t), port);
-  char c_buff[100];
-  char* delimiter = "\r\n";
+
   while(1) {
     int acc = accept_connection(socket_index, NULL, NULL);
     int rec = recv(acc, c_buff, sizeof(c_buff), 0);
-    char* client_req = parse_request(c_buff, delimiter);
-    printf("%s\n", c_buff);
-    char buffer[100] = "You have to leave the space! All the time you have to leave the space! - FernanGOAT\n";
-    send(acc, buffer, sizeof(buffer), 0);
+    int req_result = handle_request(c_buff, delimiter, user_req);
     int closed = close(acc);
   }
   
