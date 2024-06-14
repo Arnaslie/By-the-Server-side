@@ -47,17 +47,16 @@ int accept_connection(int sock, struct sockaddr *addr, socklen_t *addr_len) {
     return acc_val;
 }
 
-int handle_request(char* request, char* delimiter, Request req) {
+int handle_request(char* request, char* delimiter, request_t* req) {
+    request_line_t req_line; 
     parse_request(request, delimiter, req);
-    parse_request_line(req.function, " ");
+    parse_request_line(req->function, " ", &req_line);
     return 0;
 }
 
-char* parse_request(char* str_to_parse, char* delimiter, Request req) {
-    char* result;
-    strcpy(req.function, strtok(str_to_parse, delimiter));
-    //   req.function = strtok(str_to_parse, delimiter);
-    printf("request first line is : %s \n", req.function);
+char* parse_request(char* str_to_parse, char* delimiter, request_t* req) {
+    char* result = strtok(str_to_parse, delimiter);
+    strcpy(req->function, result);
     while(result != NULL) {
         printf("%s \n" , result);
         result = strtok(NULL, delimiter);
@@ -65,12 +64,16 @@ char* parse_request(char* str_to_parse, char* delimiter, Request req) {
     return result;
 }
 
-char* parse_request_line(char* request_line, char* delimiter) {
+void parse_request_line(char* request_line, char* delimiter, request_line_t* req) {
     char* result;
     result = strtok(request_line, delimiter);
-    while (result != NULL) {
-        printf("%s \n", result);
+    strcpy(req->http_verb, result); 
+    for(int i = 0; i < 2; i++) {
         result = strtok(NULL, delimiter);
-    }
-    return result;
+        if(i == 0) {
+            strcpy(req->http_path, result); 
+        } else if (i == 1) {
+            strcpy(req->http_version, result);
+        }
+    } 
 }

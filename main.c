@@ -19,7 +19,7 @@ int main() {
   char * header = "HTTP-Version = HTTP/1.1\n";
   char c_buff[100];
   char* delimiter = "\r\n";
-  Request user_req;
+  request_t user_req;
 
   struct sockaddr_in* socket_ptr = malloc(sizeof socket_ptr);
   struct in_addr addr_t;
@@ -42,7 +42,7 @@ int main() {
   while(1) {
     int acc = accept_connection(socket_index, NULL, NULL);
     int rec = recv(acc, c_buff, sizeof(c_buff), 0);
-    int req_result = handle_request(c_buff, delimiter, user_req);
+    int req_result = handle_request(c_buff, delimiter, &user_req);
     int closed = close(acc);
   }
   
