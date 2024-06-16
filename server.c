@@ -47,33 +47,31 @@ int accept_connection(int sock, struct sockaddr *addr, socklen_t *addr_len) {
     return acc_val;
 }
 
-int handle_request(char* request, char* delimiter, request_t* req) {
+int handle_request(char* msg_buffer, char* delimiter, request_t* req) {
     request_line_t req_line; 
-    parse_request(request, delimiter, req);
-    parse_request_line(req->function, " ", &req_line);
+    req->req_line = req_line;
+    char* line = parse_request(msg_buffer, delimiter, req);
+    parse_request_line(line, &(req->req_line), " ", req);
     return 0;
 }
 
 char* parse_request(char* str_to_parse, char* delimiter, request_t* req) {
     char* result = strtok(str_to_parse, delimiter);
-    strcpy(req->function, result);
-    while(result != NULL) {
-        printf("%s \n" , result);
-        result = strtok(NULL, delimiter);
-    }
     return result;
+    //TODO: Write code to parse headers, body because right now this is just stripping out the request line
 }
 
-void parse_request_line(char* request_line, char* delimiter, request_line_t* req) {
+void parse_request_line(char* req_line_buffer, request_line_t* request_line, char* delimiter, request_t* req) {
     char* result;
-    result = strtok(request_line, delimiter);
-    strcpy(req->http_verb, result); 
+    result = strtok(req_line_buffer, delimiter);
+    strcpy(request_line->http_verb, result);
     for(int i = 0; i < 2; i++) {
         result = strtok(NULL, delimiter);
         if(i == 0) {
-            strcpy(req->http_path, result); 
+            strcpy(req->req_line.http_path, result); 
         } else if (i == 1) {
-            strcpy(req->http_version, result);
+            strcpy(req->req_line.http_version, result);
         }
     } 
+    return;
 }
