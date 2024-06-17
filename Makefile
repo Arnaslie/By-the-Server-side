@@ -1,18 +1,19 @@
 CC=gcc
 CFLAGS=-I.
-DEPS = server.h
-OBJ = server.o main.o
+DEPS = server.h client.h
+SERVER_OBJ = server.o main.o
+CLIENT_OBJ = cleint.o server.o
 
 all: server client
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-server: $(OBJ)
+server: $(SERVER_OBJ)
 	$(CC) -o $@ $^ $(CLFAGS)
 
-client: client.o server.o
-	$(CC) -o client client.o server.o
+client: $(CLIENT_OBJ)
+	$(CC) -o $@ $^ $(CFLAGS)
 
 clean:
 	rm -f *.o
