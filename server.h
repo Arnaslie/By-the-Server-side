@@ -31,3 +31,5 @@ int handle_request(char* buffer, char* delimiter, request_t* req);
 char* parse_request(char* msg_buffer, char* delimiter, request_t* req);
 
 void parse_request_line(char* req_line_buffer, request_line_t* request_line, char* delimiter, request_t* req);
+
+void parse_headers(char* header_buffer, char* delimiter);
