@@ -26,7 +26,7 @@ int enable_listen(int sock, int backlog);
 
 int accept_connection(int sock, struct sockaddr *addr, socklen_t *addr_len);
 
-int handle_request(char* buffer, char* delimiter, request_t* req); 
+char* handle_request(char* buffer, char* delimiter, request_t* req, char* result_buff); 
 
 char* parse_request(char* msg_buffer, char* delimiter, request_t* req);
 

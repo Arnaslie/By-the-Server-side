@@ -47,15 +47,16 @@ int accept_connection(int sock, struct sockaddr *addr, socklen_t *addr_len) {
     return acc_val;
 }
 
-int handle_request(char* msg_buffer, char* delimiter, request_t* req) {
+char* handle_request(char* msg_buffer, char* delimiter, request_t* req, char* result_buff) {
     request_line_t req_line; 
     req->req_line = req_line;
     char* msg_copy = strdup(msg_buffer);
     char* line = parse_request(msg_buffer, delimiter, req);
     parse_request_line(line, &(req->req_line), " ", req);
-    parse_header_values(msg_copy, delimiter);
+    parse_headers(msg_copy, delimiter);
     free(msg_copy);
-    return 0;
+    strcpy(result_buff, "HTTP/1.0 200 OK\n");
+    return result_buff;
 }
 
 char* parse_request(char* str_to_parse, char* delimiter, request_t* req) {

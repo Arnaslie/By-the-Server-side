@@ -18,6 +18,7 @@ int main() {
 
   char * header = "HTTP-Version = HTTP/1.1\n";
   char c_buff[100];
+  char result_buff[100];
   char* delimiter = "\r\n";
   request_t user_req;
 
@@ -38,11 +39,13 @@ int main() {
 
   int listening = enable_listen(socket_index, 3);
   printf("Server is listening on %s:%d \n", inet_ntoa(addr_t), port);
+  
 
   while(1) {
     int acc = accept_connection(socket_index, NULL, NULL);
     int rec = recv(acc, c_buff, sizeof(c_buff), 0);
-    int req_result = handle_request(c_buff, delimiter, &user_req);
+    char* req_result = handle_request(c_buff, delimiter, &user_req, result_buff);
+    int send_result = send(acc, req_result, sizeof(req_result), 0);
     int closed = close(acc);
   }
   
