@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-I.
 DEPS = server.h client.h
 SERVER_OBJ = server.o main.o
-CLIENT_OBJ = cleint.o server.o
+CLIENT_OBJ = client.o server.o
 
 all: server client
 
