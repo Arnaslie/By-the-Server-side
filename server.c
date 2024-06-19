@@ -50,12 +50,24 @@ int accept_connection(int sock, struct sockaddr *addr, socklen_t *addr_len) {
 char* handle_request(char* msg_buffer, char* delimiter, request_t* req, char* result_buff) {
     request_line_t req_line; 
     req->req_line = req_line;
+    char* request_header_keys[16][20] = {
+    "Accept", "Accept-Charset", "Accept-Encoding", "Accept-Language", "Authorization", \
+    "Expect", "From", "Host", "If-Match", "If-Modified-Since", "If-None-Match", "If-Range", \
+    "If-Unmodified-Since", "Max-Forwards", "Proxy-Authorization", \
+    "Range", "Referer", "TE", "User-Agent"};
+    char* response_header_keys[9][20] = {
+        "Accept-Ranges", "Age", "ETag", "Location", "Proxy-Authenticate", \
+        "Retry-After", "Server", "Vary", "WWW-Authenticate"
+    };
+    char* request_header_values[16][100];
+    char* response_header_values[9][100];
     char* msg_copy = strdup(msg_buffer);
+
     char* line = parse_request(msg_buffer, delimiter, req);    
     parse_request_line(line, &(req->req_line), " ", req);
-    // if(req->req_line.http_verb == "GET") {
-    //     handle_get();
-    // }
+    if(strcmp(req->req_line.http_verb, "GET") == 0) {
+        handle_get();
+    }
     parse_headers(msg_copy, delimiter);
 
     free(msg_copy);
@@ -100,5 +112,6 @@ void parse_headers(char* header_buffer, char* delimiter) {
 
 // This is GET endpoint. Only return a value if the proper verb is specificed
 char* handle_get() {
+    printf("///// GET \\\\\\ \n");
     return "a";
 }
