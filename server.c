@@ -53,7 +53,11 @@ char* handle_request(char* msg_buffer, char* delimiter, request_t* req, char* re
     char* msg_copy = strdup(msg_buffer);
     char* line = parse_request(msg_buffer, delimiter, req);    
     parse_request_line(line, &(req->req_line), " ", req);
+    // if(req->req_line.http_verb == "GET") {
+    //     handle_get();
+    // }
     parse_headers(msg_copy, delimiter);
+
     free(msg_copy);
     strcpy(result_buff, "HTTP/1.0 200 OK\n");
     return result_buff;
@@ -82,9 +86,19 @@ void parse_request_line(char* req_line_buffer, request_line_t* request_line, cha
 
 void parse_headers(char* header_buffer, char* delimiter) {
     char* result = strtok(header_buffer, delimiter);
+    int i = 0;
     while(result != NULL) {
-        result = strtok(NULL, ":");
-        printf("%s\n", result); 
+        if(i % 2 == 0) {
+            result = strtok(NULL, ":");
+        } else {
+            result = strtok(NULL, "\r\n");
+        }
+        i++;
     }
     return;
+}
+
+// This is GET endpoint. Only return a value if the proper verb is specificed
+char* handle_get() {
+    return "a";
 }

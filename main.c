@@ -45,7 +45,8 @@ int main() {
     int acc = accept_connection(socket_index, NULL, NULL);
     int rec = recv(acc, c_buff, sizeof(c_buff), 0);
     char* req_result = handle_request(c_buff, delimiter, &user_req, result_buff);
-    int send_result = send(acc, req_result, sizeof(req_result), 0);
+    int send_result = send(acc, req_result, strlen(req_result), 0);
+    printf("%s\n", req_result);
     int closed = close(acc);
   }
   

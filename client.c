@@ -21,10 +21,10 @@ int main(int argc, char** argv) {
     client_side.sin_addr.s_addr = inet_addr("127.0.0.1");
     
     int connected = connect(client_socket, (struct sockaddr*) &client_side, sizeof(client_side));
-    char data_buff[100] = "GET www.api.dev.url.io HTTP/1.1\r\nHeader: Value\r\nAuthorization: Bearer\r\n\r\n";
+    char data_buff[100] = "GET www.api.dev.url.io HTTP/1.1\r\nHeader:Value\r\nAuthorization:Bearer\r\n\r\n";
     int bytes_sent = send(client_socket, data_buff, sizeof(data_buff), 0);
     char serv_buff[100];
     int received_bytes = recv(client_socket, serv_buff, sizeof(serv_buff), 0);
-    printf("%s \n", serv_buff);
+    printf("%s\n", serv_buff);
     return 0;
 }
