@@ -17,8 +17,8 @@ int main() {
   printf("Hi, we'll be building a HTTP server \n");
 
   char * header = "HTTP-Version = HTTP/1.1\n";
-  char c_buff[100];
-  char result_buff[100];
+  char c_buff[200];
+  char result_buff[200];
   char* delimiter = "\r\n";
   request_t user_req;
 

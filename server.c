@@ -48,30 +48,7 @@ int accept_connection(int sock, struct sockaddr *addr, socklen_t *addr_len) {
 }
 
 char* handle_request(char* msg_buffer, char* delimiter, request_t* req, char* result_buff) {
-    request_line_t req_line; 
-    req->req_line = req_line;
-    char* request_header_keys[16][20] = {
-    "Accept", "Accept-Charset", "Accept-Encoding", "Accept-Language", "Authorization", \
-    "Expect", "From", "Host", "If-Match", "If-Modified-Since", "If-None-Match", "If-Range", \
-    "If-Unmodified-Since", "Max-Forwards", "Proxy-Authorization", \
-    "Range", "Referer", "TE", "User-Agent"};
-    char* response_header_keys[9][20] = {
-        "Accept-Ranges", "Age", "ETag", "Location", "Proxy-Authenticate", \
-        "Retry-After", "Server", "Vary", "WWW-Authenticate"
-    };
-    char* request_header_values[16][100];
-    char* response_header_values[9][100];
-    char* msg_copy = strdup(msg_buffer);
-
-    char* line = parse_request(msg_buffer, delimiter, req);    
-    parse_request_line(line, &(req->req_line), " ", req);
-    if(strcmp(req->req_line.http_verb, "GET") == 0) {
-        handle_get();
-    }
-    parse_headers(msg_copy, delimiter);
-
-    free(msg_copy);
-    strcpy(result_buff, "HTTP/1.0 200 OK\n");
+    strcpy(result_buff, msg_buffer);
     return result_buff;
 }
 
@@ -81,6 +58,7 @@ char* parse_request(char* str_to_parse, char* delimiter, request_t* req) {
     //TODO: Write code to parse headers, body because right now this is just stripping out the request line
 }
 
+// TODO
 void parse_request_line(char* req_line_buffer, request_line_t* request_line, char* delimiter, request_t* req) {
     char* result;
     result = strtok(req_line_buffer, delimiter);
@@ -96,7 +74,8 @@ void parse_request_line(char* req_line_buffer, request_line_t* request_line, cha
     return;
 }
 
-void parse_headers(char* header_buffer, char* delimiter) {
+//TODO
+void parse_headers(char* header_buffer, char* delimiter, char* header_values[16][100]) {
     char* result = strtok(header_buffer, delimiter);
     int i = 0;
     while(result != NULL) {
