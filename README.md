@@ -9,7 +9,6 @@ This project implements a basic HTTP server from scratch in C. The primary goal 
 - Basic HTTP server implementation in C
 - Client-server model using TCP/IP connections
 - Handling of HTTP requests and responses
-- [Add any other specific features your server implements]
 
 ## Prerequisites
 
