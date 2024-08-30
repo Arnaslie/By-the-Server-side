@@ -33,4 +33,4 @@ Execute the server binary:
 
 ### Running the Client
 
-Execute the client binary with any additional arguments:
+Execute the client binary with any additional arguments. Ex: "Hello, World!"
