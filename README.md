@@ -1,9 +1,37 @@
-The intent of this project is to get a better idea of how the HTTP protocol works and to work with the low-level connections that are present in a client-server model in a TCP/IP connection.
+# HTTP Server from Scratch
 
-TO RUM
+## Project Overview
 
-Pre-requisites: C, gcc
+This project implements a basic HTTP server from scratch in C. The primary goal is to gain a deeper understanding of the HTTP protocol and to work with low-level connections present in a client-server model using TCP/IP.
 
-1) Clone the repository
-2) ``` make all ```
-3) execute the ```./server``` and ```./client``` executables
+## Features
+
+- Basic HTTP server implementation in C
+- Client-server model using TCP/IP connections
+- Handling of HTTP requests and responses
+- [Add any other specific features your server implements]
+
+## Prerequisites
+
+- C programming language
+- GCC compiler
+- Basic understanding of networking concepts
+
+## Getting Started
+
+### Installation
+
+1. Clone the repository:
+
+
+2. Compile the project: ```make all```
+
+
+### Running the Server
+
+Execute the server binary:
+
+
+### Running the Client
+
+Execute the client binary with any additional arguments:
