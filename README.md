@@ -34,3 +34,7 @@ Execute the server binary:
 ### Running the Client
 
 Execute the client binary with any additional arguments. Ex: "Hello, World!"
+
+### Documentation
+https://www.jmarshall.com/easy/http/
+https://www.gnu.org/software/libc/manual/html_node/index.html
